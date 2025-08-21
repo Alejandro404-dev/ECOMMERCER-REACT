@@ -1,0 +1,129 @@
+import React, { useState } from 'react';
+import Header from './components/header';
+import Producto from './components/Producto';
+import Login from './components/Login';
+import './App.css';
+import db from "./data/db";
+
+function App() {
+  const [carrito, setCarrito] = useState([]);
+  const [mostrarCarrito, setMostrarCarrito] = useState(false);
+  const [usuario, setUsuario] = useState(null);
+
+  // Agregar producto al carrito (máximo 10 por producto)
+  const agregarAlCarrito = (producto) => {
+    setCarrito(prev => {
+      const existe = prev.find(item => item.id === producto.id);
+      if (existe) {
+        if (existe.cantidad < 10) {
+          return prev.map(item =>
+            item.id === producto.id
+              ? { ...item, cantidad: item.cantidad + 1 }
+              : item
+          );
+        }
+        return prev;
+      }
+      return [...prev, { ...producto, cantidad: 1 }];
+    });
+  };
+
+  // Sumar uno al producto
+  const sumarProducto = (id) => {
+    setCarrito(prev =>
+      prev.map(item =>
+        item.id === id && item.cantidad < 10
+          ? { ...item, cantidad: item.cantidad + 1 }
+          : item
+      )
+    );
+  };
+
+  // Restar uno al producto
+  const restarProducto = (id) => {
+    setCarrito(prev =>
+      prev
+        .map(item =>
+          item.id === id
+            ? { ...item, cantidad: item.cantidad - 1 }
+            : item
+        )
+        .filter(item => item.cantidad > 0)
+    );
+  };
+
+  // Eliminar producto del carrito
+  const eliminarProducto = (id) => {
+    setCarrito(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Calcular total
+  const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+
+  const toggleCarrito = () => {
+    setMostrarCarrito(!mostrarCarrito);
+  };
+
+  if (!usuario) {
+    return <Login onLogin={setUsuario} />;
+  }
+
+  return (
+    <>
+      <Header cantidad={carrito.reduce((acc, item) => acc + item.cantidad, 0)} onCartClick={toggleCarrito} />
+
+      <section className="hero">
+        <div className="hero-content">
+          <h1>Encuentra tus piezas Gamer al mejor precio</h1>
+          <p>Arma tu PC con lo último en hardware</p>
+          <a href="#" className="btn">Comprar ahora</a>
+        </div>
+      </section>
+
+      <section className="productos">
+        <h2>Productos</h2>
+        <div className="productos-grid">
+          {db.map((producto) => (
+            <Producto
+              key={producto.id}
+              producto={producto}
+              agregarAlCarrito={agregarAlCarrito}
+            />
+          ))}
+        </div>
+      </section>
+
+      {mostrarCarrito && (
+        <div className="carrito-modal">
+          <h3>Carrito</h3>
+          {carrito.length === 0 ? (
+            <p>El carrito está vacío.</p>
+          ) : (
+            <ul style={{ padding: 0 }}>
+              {carrito.map((item) => (
+                <li key={item.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem', listStyle: 'none' }}>
+                  <img src={item.imagen} alt={item.nombre} style={{ width: 50, height: 50, objectFit: 'cover', marginRight: 10, borderRadius: 4 }} />
+                  <span style={{ flex: 1 }}>{item.nombre}</span>
+                  <span>${item.precio}</span>
+                  <button onClick={() => restarProducto(item.id)} style={{ margin: '0 5px', background: '#0A6207', color: '#87F414', border: 'none', borderRadius: '50%', width: 25, height: 25, fontWeight: 'bold', cursor: 'pointer' }}>-</button>
+                  <span>{item.cantidad}</span>
+                  <button onClick={() => sumarProducto(item.id)} style={{ margin: '0 5px', background: '#87F414', color: '#07141A', border: 'none', borderRadius: '50%', width: 25, height: 25, fontWeight: 'bold', cursor: 'pointer' }}>+</button>
+                  <button onClick={() => eliminarProducto(item.id)} style={{ marginLeft: 10, background: '#1C3A40', color: '#87F414', border: 'none', borderRadius: '50%', width: 25, height: 25, fontWeight: 'bold', cursor: 'pointer' }}>x</button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <hr />
+          <div style={{ textAlign: 'right', fontWeight: 'bold', fontSize: '1.1rem' }}>
+            Total: ${total.toFixed(2)}
+          </div>
+        </div>
+      )}
+      <div style={{textAlign: 'right', margin: '1rem'}}>
+        <span>Bienvenido, {usuario.usuario} ({usuario.rol})</span>
+      </div>
+    </>
+  );
+}
+
+export default App;

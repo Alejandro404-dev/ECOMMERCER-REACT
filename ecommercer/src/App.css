@@ -1,0 +1,100 @@
+body {
+  background: linear-gradient(to bottom, #0e0002 0%, #87F414 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+
+.productos {
+  background: #07141A;
+  color: #87F414;
+}
+
+
+.productos h2, .hero-content h1 {
+  color: #87F414;
+}
+
+
+.producto-card {
+  background: #0B340F;
+  border: 2px solid #0A6207;
+  color: #98A86F;
+}
+
+
+.btn-agregar {
+  background: #87F414;
+  color: #07141A;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-agregar:hover {
+  background: #0A6207;
+  color: #87F414;
+}
+
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+  background: #1C3A40;
+  color: #87F414;
+  padding: 3rem 0;
+  background-image: url('/img/piezas-gamer.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-content h1,
+.hero-content p,
+.hero-content .btn {
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  color: #98A86F;
+}
+
+.btn {
+  background: #87F414;
+  color: #07141A;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #0A6207;
+  color: #87F414;
+}
+
+.carrito-modal {
+  position: fixed;
+  top: 80px;
+  right: 30px;
+  background: #07141A;
+  color: #87F414;
+  border: 2px solid #0A6207;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  z-index: 1000;
+  min-width: 250px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+}
