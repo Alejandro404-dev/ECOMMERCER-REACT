@@ -170,6 +170,8 @@ body {
   min-width: 350px;
   max-width: 900px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  max-height: 80vh;         /* Limita la altura máxima */
+  overflow-y: auto;         /* Permite el scroll vertical interno */
 }
 
 .inventario-modal h2 {

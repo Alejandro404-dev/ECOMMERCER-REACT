@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function PagoSimulado({ producto, onClose }) {
+function PagoSimulado({ producto, esCarrito, onClose }) {
   const [metodo, setMetodo] = useState('');
   const [info, setInfo] = useState({});
 
@@ -14,11 +14,34 @@ function PagoSimulado({ producto, onClose }) {
     onClose();
   };
 
+  // Calcular total si es carrito
+  const totalCarrito = esCarrito
+    ? producto.reduce((acc, item) => acc + item.precio * item.cantidad, 0)
+    : producto.precio;
+
   return (
     <div className="pago-modal">
       <h2>Simulación de pago</h2>
-      <p><strong>Producto:</strong> {producto.nombre}</p>
-      <p><strong>Precio:</strong> ${producto.precio}</p>
+      {esCarrito ? (
+        <>
+          <h3>Productos en carrito:</h3>
+          <ul>
+            {producto.map((item) => (
+              <li key={item.id}>
+                {item.nombre} x{item.cantidad} - ${item.precio * item.cantidad}
+              </li>
+            ))}
+          </ul>
+          <div style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
+            Total: ${totalCarrito.toFixed(2)}
+          </div>
+        </>
+      ) : (
+        <>
+          <p><strong>Producto:</strong> {producto.nombre}</p>
+          <p><strong>Precio:</strong> ${producto.precio}</p>
+        </>
+      )}
       <form onSubmit={handleSubmit}>
         <label>Método de pago:</label>
         <select name="metodo" value={metodo} onChange={e => setMetodo(e.target.value)} required>

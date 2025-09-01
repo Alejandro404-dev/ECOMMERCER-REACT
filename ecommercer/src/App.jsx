@@ -14,6 +14,8 @@ function App() {
   const [usuario, setUsuario] = useState(null);
   const [productoPago, setProductoPago] = useState(null);
   const [mostrarInventario, setMostrarInventario] = useState(false);
+  const [pagoCarrito, setPagoCarrito] = useState(false);
+  const [productos, setProductos] = useState(db);
 
   // Agregar producto al carrito (máximo 10 por producto)
   const agregarAlCarrito = (producto) => {
@@ -101,7 +103,7 @@ function App() {
       />
 
       {mostrarInventario && usuario?.rol === "admin" ? (
-        <Inventario productos={db} onClose={handleCerrarInventario} />
+        <Inventario productos={productos} setProductos={setProductos} onClose={handleCerrarInventario} />
       ) : (
         <>
           <section className="hero">
@@ -115,7 +117,7 @@ function App() {
           <section className="productos" id="productos">
             <h2>Productos</h2>
             <div className="productos-grid">
-              {db.map((producto) => (
+              {productos.map((producto) => (
                 <Producto
                   key={producto.id}
                   producto={producto}
@@ -169,6 +171,19 @@ function App() {
               <div style={{ textAlign: 'right', fontWeight: 'bold', fontSize: '1.1rem' }}>
                 Total: ${total.toFixed(2)}
               </div>
+              {carrito.length > 0 && (
+                <button
+                  className="btn-comprar"
+                  style={{ width: '100%', marginTop: '1rem' }}
+                  onClick={() => {
+                    setProductoPago(carrito); // Pasamos el carrito completo
+                    setPagoCarrito(true);
+                    setMostrarCarrito(false);
+                  }}
+                >
+                  Comprar carrito
+                </button>
+              )}
             </div>
           )}
           <div style={{textAlign: 'right', margin: '1rem'}}>
@@ -178,7 +193,11 @@ function App() {
           {productoPago && (
             <PagoSimulado
               producto={productoPago}
-              onClose={() => setProductoPago(null)}
+              esCarrito={pagoCarrito}
+              onClose={() => {
+                setProductoPago(null);
+                setPagoCarrito(false);
+              }}
             />
           )}
         </>
