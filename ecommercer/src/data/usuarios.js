@@ -13,4 +13,7 @@ const usuarios = [
   }
 ];
 
+
+//filtro usuario y admin es que admin puede ver el inventario mientras que el usuario no tambien editar los productos tambien crear elimir y actualizar productos editar imagenes del producto
+
 export default usuarios;

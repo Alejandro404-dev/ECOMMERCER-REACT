@@ -98,3 +98,194 @@ body {
   min-width: 250px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.5);
 }
+
+.pago-modal {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #07141A;
+  color: #87F414;
+  border: 2px solid #0A6207;
+  border-radius: 8px;
+  padding: 2rem;
+  z-index: 2000;
+  min-width: 320px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+}
+
+.pago-modal input, .pago-modal select {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #1C3A40;
+  background: #0B340F;
+  color: #87F414;
+}
+
+.pago-modal button {
+  background: #87F414;
+  color: #07141A;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.pago-modal button[type="button"] {
+  background: #1C3A40;
+  color: #87F414;
+}
+
+.btn-comprar {
+  background: #1C3A40;
+  color: #87F414;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.btn-comprar:hover {
+  background: #0A6207;
+  color: #87F414;
+}
+
+.inventario-modal {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #07141A;
+  color: #87F414;
+  border: 2px solid #0A6207;
+  border-radius: 12px;
+  padding: 2rem;
+  z-index: 2000;
+  min-width: 350px;
+  max-width: 900px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+.inventario-modal h2 {
+  margin-bottom: 1.5rem;
+  color: #87F414;
+  text-align: center;
+}
+
+.inventario-modal button {
+  background: #87F414;
+  color: #07141A;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.2s;
+}
+
+.inventario-modal button:hover {
+  background: #0A6207;
+  color: #87F414;
+}
+
+.inventario-modal .productos-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inventario-modal .producto-card {
+  background: #0B340F;
+  border: 2px solid #0A6207;
+  color: #98A86F;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  width: 220px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inventario-modal .producto-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
+.contacto {
+  background: #07141A;
+  color: #87F414;
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.contacto h2 {
+  margin-bottom: 1.5rem;
+  color: #87F414;
+}
+
+.contacto form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.contacto input,
+.contacto textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #1C3A40;
+  background: #0B340F;
+  color: #87F414;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.contacto input:focus,
+.contacto textarea:focus {
+  border: 1.5px solid #87F414;
+}
+
+.contacto button {
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #87F414;
+  color: #07141A;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.contacto button:hover {
+  background: #0A6207;
+  color: #87F414;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding-top: 90px; /* Altura aproximada del header */
+}
