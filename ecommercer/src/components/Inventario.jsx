@@ -5,15 +5,19 @@ function Inventario({ productos, setProductos, onClose }) {
     nombre: '',
     precio: '',
     stocks: '',
-    imagen: ''
+    imagen: '',
+    categoria: ''
   });
   const [editandoId, setEditandoId] = useState(null);
   const [editProducto, setEditProducto] = useState({
     nombre: '',
     precio: '',
     stocks: '',
-    imagen: ''
+    imagen: '',
+    categoria: ''
   });
+  const [categoriaFiltro, setCategoriaFiltro] = useState('');
+  const [busqueda, setBusqueda] = useState('');
 
   // Maneja el cambio de los campos del formulario
   const handleChange = (e) => {
@@ -38,10 +42,11 @@ function Inventario({ productos, setProductos, onClose }) {
       nombre: nuevoProducto.nombre,
       precio: parseFloat(nuevoProducto.precio),
       stocks: parseInt(nuevoProducto.stocks),
-      imagen: nuevoProducto.imagen
+      imagen: nuevoProducto.imagen,
+      categoria: nuevoProducto.categoria
     };
     setProductos([...productos, nuevo]);
-    setNuevoProducto({ nombre: '', precio: '', stocks: '', imagen: '' });
+    setNuevoProducto({ nombre: '', precio: '', stocks: '', imagen: '', categoria: '' });
   };
 
   // Para eliminar producto
@@ -56,7 +61,8 @@ function Inventario({ productos, setProductos, onClose }) {
       nombre: producto.nombre,
       precio: producto.precio,
       stocks: producto.stocks,
-      imagen: producto.imagen
+      imagen: producto.imagen,
+      categoria: producto.categoria
     });
   };
 
@@ -77,19 +83,26 @@ function Inventario({ productos, setProductos, onClose }) {
             nombre: editProducto.nombre,
             precio: parseFloat(editProducto.precio),
             stocks: parseInt(editProducto.stocks),
-            imagen: editProducto.imagen
+            imagen: editProducto.imagen,
+            categoria: editProducto.categoria
           }
         : p
     ));
     setEditandoId(null);
-    setEditProducto({ nombre: '', precio: '', stocks: '', imagen: '' });
+    setEditProducto({ nombre: '', precio: '', stocks: '', imagen: '', categoria: '' });
   };
 
   // Cancelar edición
   const cancelarEdicion = () => {
     setEditandoId(null);
-    setEditProducto({ nombre: '', precio: '', stocks: '', imagen: '' });
+    setEditProducto({ nombre: '', precio: '', stocks: '', imagen: '', categoria: '' });
   };
+
+  const productosFiltrados = productos.filter(producto => {
+    const coincideCategoria = categoriaFiltro ? producto.categoria === categoriaFiltro : true;
+    const coincideBusqueda = producto.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    return coincideCategoria && coincideBusqueda;
+  });
 
   return (
     <div className="inventario-modal">
@@ -131,10 +144,36 @@ function Inventario({ productos, setProductos, onClose }) {
           onChange={handleChange}
           required
         />
+        <select
+          name="categoria"
+          value={nuevoProducto.categoria}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Selecciona categoría</option>
+          <option value="teclado">Teclado</option>
+          <option value="mouse">Mouse</option>
+          <option value="monitor">Monitor</option>
+        </select>
         <button type="submit">Agregar producto</button>
       </form>
+      <div style={{display: 'flex', gap: '1rem', marginBottom: '1rem', justifyContent: 'center'}}>
+        <select value={categoriaFiltro} onChange={e => setCategoriaFiltro(e.target.value)}>
+          <option value="">Todas las categorías</option>
+          <option value="teclado">Teclados</option>
+          <option value="mouse">Mouse</option>
+          <option value="monitor">Monitores</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Buscar producto..."
+          value={busqueda}
+          onChange={e => setBusqueda(e.target.value)}
+          style={{padding: '0.5rem', borderRadius: '6px', border: '1px solid #1C3A40', background: '#0B340F', color: '#87F414'}}
+        />
+      </div>
       <div className="productos-grid">
-        {productos.map((producto) => (
+        {productosFiltrados.map((producto) => (
           <div key={producto.id} className="producto-card">
             {editandoId === producto.id ? (
               <>
@@ -165,6 +204,17 @@ function Inventario({ productos, setProductos, onClose }) {
                   value={editProducto.imagen}
                   onChange={handleEditChange}
                 />
+                <select
+                  name="categoria"
+                  value={editProducto.categoria}
+                  onChange={handleEditChange}
+                  required
+                >
+                  <option value="">Selecciona categoría</option>
+                  <option value="teclado">Teclado</option>
+                  <option value="mouse">Mouse</option>
+                  <option value="monitor">Monitor</option>
+                </select>
                 <button onClick={() => guardarEdicion(producto.id)}>Guardar</button>
                 <button onClick={cancelarEdicion} style={{marginLeft: '0.5rem'}}>Cancelar</button>
               </>

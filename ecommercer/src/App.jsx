@@ -16,6 +16,8 @@ function App() {
   const [mostrarInventario, setMostrarInventario] = useState(false);
   const [pagoCarrito, setPagoCarrito] = useState(false);
   const [productos, setProductos] = useState(db);
+  const [categoriaFiltro, setCategoriaFiltro] = useState('');
+  const [busqueda, setBusqueda] = useState('');
 
   // Agregar producto al carrito (máximo 10 por producto)
   const agregarAlCarrito = (producto) => {
@@ -89,6 +91,12 @@ function App() {
     setMostrarInventario(false);
   };
 
+  const productosFiltrados = productos.filter(producto => {
+    const coincideCategoria = categoriaFiltro ? producto.categoria === categoriaFiltro : true;
+    const coincideBusqueda = producto.nombre.toLowerCase().includes(busqueda.toLowerCase());
+    return coincideCategoria && coincideBusqueda;
+  });
+
   if (!usuario) {
     return <Login onLogin={setUsuario} />;
   }
@@ -116,8 +124,23 @@ function App() {
 
           <section className="productos" id="productos">
             <h2>Productos</h2>
+            <div style={{display: 'flex', gap: '1rem', marginBottom: '1rem', justifyContent: 'center'}}>
+              <select value={categoriaFiltro} onChange={e => setCategoriaFiltro(e.target.value)}>
+                <option value="">Todas las categorías</option>
+                <option value="teclado">Teclados</option>
+                <option value="mouse">Mouse</option>
+                <option value="monitor">Monitores</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Buscar producto..."
+                value={busqueda}
+                onChange={e => setBusqueda(e.target.value)}
+                style={{padding: '0.5rem', borderRadius: '6px', border: '1px solid #1C3A40', background: '#0B340F', color: '#87F414'}}
+              />
+            </div>
             <div className="productos-grid">
-              {productos.map((producto) => (
+              {productosFiltrados.map((producto) => (
                 <Producto
                   key={producto.id}
                   producto={producto}

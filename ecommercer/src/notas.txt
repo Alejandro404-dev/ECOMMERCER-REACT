@@ -4,3 +4,4 @@
 //implementar dentro de las cajas de producto un boton de comprar ahora y eso lo mande directamente a la simulacion de pago
 //seccion de contactanos
 //el boton de logo al undirlo tiene que llevar al inicio 
+// filtro de los productos

@@ -291,3 +291,106 @@ body {
 main {
   padding-top: 90px; /* Altura aproximada del header */
 }
+
+/* Estilos para el formulario de agregar y editar productos */
+.inventario-modal form {
+  background: #0B340F;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.inventario-modal input,
+.inventario-modal select {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #1C3A40;
+  background: #07141A;
+  color: #87F414;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  min-width: 140px;
+}
+
+.inventario-modal input:focus,
+.inventario-modal select:focus {
+  border: 1.5px solid #87F414;
+}
+
+.inventario-modal button,
+.inventario-modal .productos-grid .producto-card button {
+  background: #87F414;
+  color: #07141A;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 6px #0A6207;
+}
+
+.inventario-modal button:hover,
+.inventario-modal .productos-grid .producto-card button:hover {
+  background: #0A6207;
+  color: #87F414;
+  box-shadow: 0 0 12px #87F414;
+}
+
+.inventario-modal select {
+  min-width: 150px;
+}
+
+/* Estilos para los filtros de categoría y búsqueda */
+.inventario-modal > div[style*="gap: 1rem"] select,
+.inventario-modal > div[style*="gap: 1rem"] input {
+  background: #07141A;
+  color: #87F414;
+  border: 1px solid #1C3A40;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  min-width: 150px;
+}
+
+.inventario-modal > div[style*="gap: 1rem"] select:focus,
+.inventario-modal > div[style*="gap: 1rem"] input:focus {
+  border: 1.5px solid #87F414;
+}
+
+/* Opcional: mejora la visualización de los inputs en edición */
+.inventario-modal .producto-card input,
+.inventario-modal .producto-card select {
+  margin-bottom: 0.5rem;
+}
+
+/* Selector de categoría y buscador en la zona de productos */
+.productos select,
+.productos input[type="text"] {
+  background: #07141A;
+  color: #87F414;
+  border: 1px solid #1C3A40;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  min-width: 150px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.productos select:focus,
+.productos input[type="text"]:focus {
+  border: 1.5px solid #87F414;
+}
